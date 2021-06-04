@@ -1,6 +1,7 @@
 from texto import obtener_texto
 texto_a_trabajar=obtener_texto()
 import string
+import random
 
 def limpiador(lista_texto): 
     contador = 0
@@ -26,7 +27,11 @@ def borrador(lista):
     print(len(lista))
     return lista
 ##########################################################
+def quitar_tildes(palabra):
+    for caracter in palabra:
+        pass
 
+##########################################################
 def diccionario_ordenado(frecuencia):
   contadorPalabras={} 
   #Se crea un diccionario vacio 
@@ -42,6 +47,25 @@ def diccionario_ordenado(frecuencia):
   return sorted(contadorPalabras.items(),key=lambda x:x[0],reverse=False) 
 #usamos el "dict.items()" para obtener los key,value del diccionario y se ordena alfabeticamente con palabra,valor respectivamente
 #########################################################
+#PARTE DE LA ETAPA 3
+def sus(dictOrdenado,longitudPalabra):
+    listaPalabras=[]
+    #Creamos una lista para almacenar todas las palabras segun la longitud que queremos
+    for palabra in dictOrdenado.items():
+        #usamos el "dict.items()" para recorrer una lista de tuplas
+        if len(palabra[0])==longitudPalabra:
+            #Usamos la funcion "len()" y seleccionamos la posicion "0" para seleccionar solo la palabra
+            listaPalabras.append(palabra[0])
+            #Luego de comparar la longitud de la palabra con la longitud que se busca, si estas coinciden se agregan a la listaPalabras
+        elif longitudPalabra==0:
+            #Definimos que pasa si el parametro longitudPalabra es cero, que en este caso, si el parametro es cero, se toma todo el diccionario
+            listaPalabras=dictOrdenado
+    return listaPalabras
+
+def amogus(palabraCandidata):
+    #Recibe como parametro las palabras filtradas anteriormente
+    return random.choice(palabraCandidata)
+    #Regresa una palabra aleatoria de las palabras posibles
 
 def main():
     ##esta funcion la saque de internet solo sirve con import string saca los simbolos basicos
@@ -50,7 +74,12 @@ def main():
     lista_texto =  texto.split() 
     lista_texto = limpiador(lista_texto)
     lista_texto = borrador(lista_texto)
-    lista_texto = diccionario_ordenado(lista_texto)
+    #   lista_texto = normalize(lista_texto)
+    lista_texto = dict(diccionario_ordenado(lista_texto))
+    lista_texto = sus(lista_texto,12)
+    lista_texto = amogus(lista_texto)
     print(lista_texto)
     #diccionario = palabras_enteras(lista)
 main()
+
+
